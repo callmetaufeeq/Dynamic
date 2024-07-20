@@ -56,7 +56,7 @@ mymodule:
   bespa:
     modules:
       - admin
-      - login
-      - billing
+      #- login
+      #- billing
     test:
       abc

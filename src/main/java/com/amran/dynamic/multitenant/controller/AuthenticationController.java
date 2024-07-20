@@ -1,13 +1,11 @@
 package com.amran.dynamic.multitenant.controller;
 
-import com.amran.dynamic.multitenant.constant.UserStatus;
-import com.amran.dynamic.multitenant.dto.AuthResponse;
-import com.amran.dynamic.multitenant.dto.UserLoginDTO;
-import com.amran.dynamic.multitenant.mastertenant.config.DBContextHolder;
-import com.amran.dynamic.multitenant.mastertenant.entity.MasterTenant;
-import com.amran.dynamic.multitenant.mastertenant.service.MasterTenantService;
-import com.amran.dynamic.multitenant.security.UserTenantInformation;
-import com.amran.dynamic.multitenant.util.JwtTokenUtil;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.constraints.NotNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +24,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.ApplicationScope;
 
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import com.amran.dynamic.multitenant.constant.UserStatus;
+import com.amran.dynamic.multitenant.dto.AuthResponse;
+import com.amran.dynamic.multitenant.dto.UserLoginDTO;
+import com.amran.dynamic.multitenant.mastertenant.config.DBContextHolder;
+import com.amran.dynamic.multitenant.mastertenant.entity.MasterTenant;
+import com.amran.dynamic.multitenant.mastertenant.service.MasterTenantService;
+import com.amran.dynamic.multitenant.security.UserTenantInformation;
+import com.amran.dynamic.multitenant.util.JwtTokenUtil;
 
 /**
  * @author Md. Amran Hossain
@@ -38,7 +40,12 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class AuthenticationController implements Serializable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
 
     private Map<String, String> mapValue = new HashMap<>();
     private Map<String, String> userDbMap = new HashMap<>();

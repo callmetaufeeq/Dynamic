@@ -1,7 +1,7 @@
 package com.amran.dynamic.multitenant.controller;
 
-import com.amran.dynamic.multitenant.security.RequestAuthorization;
-import com.amran.dynamic.multitenant.tenant.service.ProductService;
+import java.io.Serializable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.Serializable;
+import com.amran.dynamic.multitenant.security.RequestAuthorization;
+import com.amran.dynamic.multitenant.tenant.service.ProductService;
 
 /**
  * @author Md. Amran Hossain | amrancse930@gmail.com
@@ -20,7 +21,12 @@ import java.io.Serializable;
 @RequestMapping("/api/product")
 public class ProductController implements Serializable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
     ProductService  productService;

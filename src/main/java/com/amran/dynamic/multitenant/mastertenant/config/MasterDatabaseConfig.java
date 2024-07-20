@@ -1,7 +1,9 @@
 package com.amran.dynamic.multitenant.mastertenant.config;
 
 import com.amran.dynamic.multitenant.mastertenant.entity.MasterTenant;
+import com.amran.dynamic.multitenant.mastertenant.entity.UserTenant;
 import com.amran.dynamic.multitenant.mastertenant.repository.MasterTenantRepository;
+import com.amran.dynamic.multitenant.mastertenant.userUtils.Role;
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +29,9 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {"com.amran.dynamic.multitenant.mastertenant.entity", "com.amran.dynamic.multitenant.mastertenant.repository"},
+@EnableJpaRepositories(basePackages = {"com.amran.dynamic.multitenant.mastertenant.entity", 
+		"com.amran.dynamic.multitenant.mastertenant.repository",
+		"com.amran.dynamic.multitenant.mastertenant.userUtils"},
         entityManagerFactoryRef = "masterEntityManagerFactory",
         transactionManagerRef = "masterTransactionManager")
 public class MasterDatabaseConfig {
@@ -62,7 +66,10 @@ public class MasterDatabaseConfig {
         // Set the master data source
         em.setDataSource(masterDataSource());
         // The master tenant entity and repository need to be scanned
-        em.setPackagesToScan(new String[]{MasterTenant.class.getPackage().getName(), MasterTenantRepository.class.getPackage().getName()});
+        em.setPackagesToScan(new String[]{MasterTenant.class.getPackage().getName(),
+        		MasterTenantRepository.class.getPackage().getName(),
+        		Role.class.getPackage().getName(),
+                UserTenant.class.getPackage().getName()});
         // Setting a name for the persistence unit as Spring sets it as
         // 'default' if not defined
         em.setPersistenceUnitName("masterdb-persistence-unit");
@@ -92,7 +99,7 @@ public class MasterDatabaseConfig {
         properties.put(org.hibernate.cfg.Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
         properties.put(org.hibernate.cfg.Environment.SHOW_SQL, true);
         properties.put(org.hibernate.cfg.Environment.FORMAT_SQL, true);
-        properties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, "none");
+        properties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, "update");
         return properties;
     }
 }
